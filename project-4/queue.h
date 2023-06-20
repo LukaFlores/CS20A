@@ -41,45 +41,31 @@ Queue<Type>::Queue() :list() {}
 
 template<typename Type>
 void Queue<Type>::enqueue(Type item) {
-	
-	/*  TODO  */
-
+    list.insert_front(item);
 }
 
 
 template<typename Type>
 void Queue<Type>::dequeue() {
-	
-	/*  TODO  */
-
+    list.remove_rear();
 }
 
 
 template<typename Type>
 bool Queue<Type>::empty() const {
-	
-	/*  TODO  */
-
-	return false;
+    return list.empty();
 }
 
 
 template<typename Type>
 Type Queue<Type>::peek() const {
-
-	/*  TODO  */
-
-	Type RETURN_VALUE_REQUIRED_TO_COMPILE; 
-
-	return RETURN_VALUE_REQUIRED_TO_COMPILE;
+    return list.peek_front();
 }
 
 
 template<typename Type>
 void Queue<Type>::print() const {
-	
-	/*  TODO  */
-
+    list.print();
 }
 
 

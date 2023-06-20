@@ -41,46 +41,31 @@ Stack<Type>::Stack():list() {}
 
 template<typename Type>
 void Stack<Type>::push(Type item) {
-
-	/*  TODO  */
-	
-
+    list.insert_rear(item);
 }
 
 
 template<typename Type>
 void Stack<Type>::pop() {
-	
-	/*  TODO  */
-	
+    list.remove_rear();
 }
 
 
 template<typename Type>
 bool Stack<Type>::empty() const {
-	
-	/*  TODO  */
-
-	return false;
+    return list.empty();
 }
 
 
 template<typename Type>
 Type Stack<Type>::peek() const {
-
-	/*  TODO  */
-	
-	Type RETURN_VALUE_REQUIRED_TO_COMPILE;
-
-	return RETURN_VALUE_REQUIRED_TO_COMPILE;
+    return list.peek_rear();
 }
 
 
 template<typename Type>
 void Stack<Type>::print() const {
-	
-	/* TODO */
-
+    list.print();
 }
 
 

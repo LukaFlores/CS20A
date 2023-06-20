@@ -40,6 +40,7 @@ bool Player::foundExit() const {
 Room Player::getTargetRoom() const {
 	if (m_lookingPaper.empty()) return Room(-1, -1);
 	return m_lookingPaper.peek();
+    // 
 }
 
 // discovered
@@ -109,7 +110,67 @@ void Player::say() {
 //		Make sure the STATE::LOOK aspect compiles and works first.
 void Player::update() {
 
-	/* TODO */
+    say();
+
+    if (state() != State::LOOK) return;
+
+    Room currentRoom = room();
+
+    if (maze()->foundExit(currentRoom)) {
+        state(State::EXIT);
+        return;
+    }
+
+    if (m_lookingPaper.empty()) {
+        state(State::NOEXIT);
+        return;
+    }
+
+    move(getTargetRoom());
+    m_discoveredRooms.insert_front(room());
+
+    Room north(room().x(), room().y() + 1);
+    Room south(room().x(), room().y() - 1);
+    Room west(room().x() - 1, room().y());
+    Room east(room().x() + 1, room().y());
+
+    // If North is undiscovered and Open add to queue
+    if (m_discoveredRooms.find(north) == -1) {
+        if ((maze()->open(north))) {
+            m_lookingPaper.enqueue(north);
+            m_discoveredRooms.insert_rear(north);
+        }
+    }
+
+    // If south is undiscovered and Open add to queue
+    if (m_discoveredRooms.find(south) == -1) {
+        if (maze()->open(south)) {
+            m_lookingPaper.enqueue(south);
+            m_discoveredRooms.insert_rear(south);
+        }
+    }
+
+    // If west is undiscovered and Open add to queue
+    if (m_discoveredRooms.find(west) == -1) {
+        if(maze()->open(west)){
+            m_lookingPaper.enqueue(west);
+            m_discoveredRooms.insert_rear(west);
+        }
+    }
+
+    // If east is undiscovered and Open add to queue
+    if (m_discoveredRooms.find(east) == -1) {
+        if (maze()->open(east)) {
+            m_lookingPaper.enqueue(east);
+            m_discoveredRooms.insert_rear(east);
+        }
+    }
+
+    if (getTargetRoom() == room()) {
+        m_lookingPaper.dequeue();
+    }
+
+
 
 	if (BACKTRACKENABLED) {
 	// Set by the settings file, if BACKTRACKENABLED is false, then

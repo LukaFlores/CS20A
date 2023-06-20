@@ -50,6 +50,7 @@ int main() {
 
 int main() {
 
+
 	//Setup game
 	Game g("settings.ini");
 
